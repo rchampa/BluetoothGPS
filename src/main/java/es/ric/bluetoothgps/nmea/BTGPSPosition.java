@@ -3,7 +3,7 @@ package es.ric.bluetoothgps.nmea;
 /**
  * Created by Ricardo on 17/12/15.
  */
-public class GPSPosition {
+public class BTGPSPosition {
     public float time = 0.0f;
     public float lat = 0.0f;
     public float lon = 0.0f;

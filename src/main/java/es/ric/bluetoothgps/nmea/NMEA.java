@@ -10,7 +10,7 @@ public class NMEA {
 
     // fucking java interfaces
     interface SentenceParser {
-        public boolean parse(String[] tokens, GPSPosition position);
+        public boolean parse(String[] tokens, BTGPSPosition position);
     }
 
     // utils
@@ -44,7 +44,7 @@ public class NMEA {
 
     // parsers
     class GPGGA implements SentenceParser {
-        public boolean parse(String [] tokens, GPSPosition position) {
+        public boolean parse(String [] tokens, BTGPSPosition position) {
             try {
                 position.time = Float.parseFloat(tokens[1]);
             }
@@ -65,7 +65,7 @@ public class NMEA {
     }
 
     class GPGGL implements SentenceParser {
-        public boolean parse(String [] tokens, GPSPosition position) {
+        public boolean parse(String [] tokens, BTGPSPosition position) {
             position.lat = Latitude2Decimal(tokens[1], tokens[2]);
             position.lon = Longitude2Decimal(tokens[3], tokens[4]);
             try {
@@ -77,7 +77,7 @@ public class NMEA {
     }
 
     class GPRMC implements SentenceParser {
-        public boolean parse(String [] tokens, GPSPosition position) {
+        public boolean parse(String [] tokens, BTGPSPosition position) {
             try {
                 position.time = Float.parseFloat(tokens[1]);
             }
@@ -97,21 +97,21 @@ public class NMEA {
     }
 
     class GPVTG implements SentenceParser {
-        public boolean parse(String [] tokens, GPSPosition position) {
+        public boolean parse(String [] tokens, BTGPSPosition position) {
             position.dir = Float.parseFloat(tokens[3]);
             return true;
         }
     }
 
     class GPRMZ implements SentenceParser {
-        public boolean parse(String [] tokens, GPSPosition position) {
+        public boolean parse(String [] tokens, BTGPSPosition position) {
             position.altitude = Float.parseFloat(tokens[1]);
             return true;
         }
     }
 
 
-    GPSPosition position = new GPSPosition();
+    BTGPSPosition position = new BTGPSPosition();
 
     private static final Map<String, SentenceParser> sentenceParsers = new HashMap<String, SentenceParser>();
 
@@ -124,7 +124,7 @@ public class NMEA {
         sentenceParsers.put("GPVTG", new GPVTG());
     }
 
-    public GPSPosition parse(String line) {
+    public BTGPSPosition parse(String line) {
 
         if(line.startsWith("$")) {
             String nmea = line.substring(1);

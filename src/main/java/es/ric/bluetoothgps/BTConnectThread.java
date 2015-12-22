@@ -10,23 +10,23 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.UUID;
 
-import es.ric.bluetoothgps.nmea.GPSPosition;
+import es.ric.bluetoothgps.nmea.BTGPSPosition;
 import es.ric.bluetoothgps.nmea.NMEA;
 
 
 /**
  * Created by Ricardo on 16/12/15.
  */
-public class ConnectThread extends Thread {
+public class BTConnectThread extends Thread {
     private final BluetoothSocket mmSocket;
     private final BluetoothDevice mmDevice;
     private final BluetoothAdapter mBluetoothAdapter;
-    private MyBlueToothListener listener;
+    private BTGPSListener listener;
     private long milliseconds;
 
     private volatile boolean isON;
 
-    public ConnectThread(BluetoothDevice device,  BluetoothAdapter mBluetoothAdapter, MyBlueToothListener listener, long milliseconds) {
+    public BTConnectThread(BluetoothDevice device, BluetoothAdapter mBluetoothAdapter, BTGPSListener listener, long milliseconds) {
 
         this.listener = listener;
         this.milliseconds = milliseconds;
@@ -101,7 +101,7 @@ public class ConnectThread extends Thread {
                     startTime = System.currentTimeMillis();
 
                     nmeaMessage = br.readLine();
-                    GPSPosition parsed_position = parser.parse(nmeaMessage);
+                    BTGPSPosition parsed_position = parser.parse(nmeaMessage);
 //                    Log.d("GPS", nmeaMessage);
                     if (listener != null) {
                         listener.update(parsed_position, nmeaMessage);
