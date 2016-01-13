@@ -22,11 +22,24 @@ public class BTConnectThread extends Thread {
     private final BluetoothDevice mmDevice;
     private final BluetoothAdapter mBluetoothAdapter;
     private BTGPSListener listener;
-    private long milliseconds;
+    private long milliseconds = 500;
 
     private volatile boolean isON;
 
-    public BTConnectThread(BluetoothDevice device, BluetoothAdapter mBluetoothAdapter, BTGPSListener listener, long milliseconds) {
+    /**
+     * Creates a thread that handles bluetooth socket
+     * @param device the bluetooth gps device
+     * @param mBluetoothAdapter a BluetoothAdapter object
+     * @param listener to listen new info updates from bluetooth socket
+     * @param milliseconds the time between each update, 500ms by default. Probably you want adjust(less than 500ms)
+     *                     this value to catch more values.
+     */
+    public BTConnectThread(BluetoothDevice device, BluetoothAdapter mBluetoothAdapter, BTGPSListener listener, long milliseconds)
+    throws Exception{
+
+        if(listener==null || mBluetoothAdapter==null){
+            throw new NullPointerException();
+        }
 
         this.listener = listener;
         this.milliseconds = milliseconds;
@@ -40,15 +53,15 @@ public class BTConnectThread extends Thread {
         this.mBluetoothAdapter = mBluetoothAdapter;
 
         // Get a BluetoothSocket to connect with the given BluetoothDevice
-        try {
+//        try {
             // MY_UUID is the app's UUID string, also used by the server code
             UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-            tmp = device.createRfcommSocketToServiceRecord(uuid);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+            tmp = mmDevice.createRfcommSocketToServiceRecord(uuid);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
         mmSocket = tmp;
     }
 

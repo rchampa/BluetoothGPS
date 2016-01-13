@@ -1,9 +1,11 @@
 package es.ric.bluetoothgps.nmea;
 
+import java.io.Serializable;
+
 /**
  * Created by Ricardo on 17/12/15.
  */
-public class BTGPSPosition {
+public class BTGPSPosition implements Serializable{
     public float time = 0.0f;
     public float lat = 0.0f;
     public float lon = 0.0f;
