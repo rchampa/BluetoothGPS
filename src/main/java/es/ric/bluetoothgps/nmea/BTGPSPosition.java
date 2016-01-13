@@ -1,5 +1,7 @@
 package es.ric.bluetoothgps.nmea;
 
+import android.location.Location;
+
 import java.io.Serializable;
 
 /**
@@ -21,5 +23,16 @@ public class BTGPSPosition implements Serializable{
 
     public String toString() {
         return String.format("lat: %f, lon: %f, time: %f, Q: %d, dir: %f, alt: %f, vel: %f", lat, lon, time, quality, dir, altitude, velocity);
+    }
+
+    public Location getLocation(){
+        Location location = new Location("");
+        location.setTime((long)time);
+        location.setLatitude(lat);
+        location.setLongitude(lon);
+        location.setAltitude(altitude);
+        location.setSpeed(velocity);
+
+        return location;
     }
 }
