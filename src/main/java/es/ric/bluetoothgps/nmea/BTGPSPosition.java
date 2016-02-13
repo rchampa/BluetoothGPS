@@ -1,6 +1,7 @@
 package es.ric.bluetoothgps.nmea;
 
 import android.location.Location;
+import android.os.Bundle;
 
 import java.io.Serializable;
 
@@ -8,6 +9,9 @@ import java.io.Serializable;
  * Created by Ricardo on 17/12/15.
  */
 public class BTGPSPosition implements Serializable{
+
+    public static final String QUALITY = "quality";
+
     public float time = 0.0f;
     public float lat = 0.0f;
     public float lon = 0.0f;
@@ -27,11 +31,14 @@ public class BTGPSPosition implements Serializable{
 
     public Location getLocation(){
         Location location = new Location("");
-        location.setTime((long)time);
+        location.setTime((long) time);
         location.setLatitude(lat);
         location.setLongitude(lon);
         location.setAltitude(altitude);
         location.setSpeed(velocity);
+        Bundle extras = new Bundle();
+        extras.putInt(QUALITY, quality);
+        location.setExtras(extras);
 
         return location;
     }
