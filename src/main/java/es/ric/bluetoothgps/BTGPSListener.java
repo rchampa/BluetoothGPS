@@ -9,4 +9,6 @@ import es.ric.bluetoothgps.nmea.BTGPSPosition;
 public interface BTGPSListener {
 
     public void update(BTGPSPosition position, String nmea_message);
+    public void abortedConnection();
+    public void cantReachConnection();
 }

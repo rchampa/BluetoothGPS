@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class BTGPSPosition implements Serializable{
 
     public static final String QUALITY = "quality";
+    public static final String SENTENCE = "sentence";
 
     public float time = 0.0f;
     public float lat = 0.0f;
@@ -39,6 +40,7 @@ public class BTGPSPosition implements Serializable{
         location.setSpeed(velocity);
         Bundle extras = new Bundle();
         extras.putInt(QUALITY, quality);
+        extras.putString(SENTENCE, sentence);
         location.setExtras(extras);
 
         return location;

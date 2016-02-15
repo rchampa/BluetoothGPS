@@ -81,7 +81,11 @@ public class BTConnectThread extends Thread {
             // Unable to connect; close the socket and get out
             try {
                 mmSocket.close();
-            } catch (IOException closeException) { }
+            }
+            catch (IOException closeException) { }
+            if(listener!=null){
+                listener.cantReachConnection();
+            }
             return;
         }
 
@@ -115,7 +119,7 @@ public class BTConnectThread extends Thread {
 
                     nmeaMessage = br.readLine();
                     BTGPSPosition parsed_position = parser.parse(nmeaMessage);
-//                    Log.d("GPS", nmeaMessage);
+
                     if (listener != null) {
                         listener.update(parsed_position, nmeaMessage);
                     }
@@ -129,6 +133,9 @@ public class BTConnectThread extends Thread {
         }
         catch(Exception e){
             e.printStackTrace();
+            if(listener!=null){
+                listener.abortedConnection();
+            }
         }
         finally {
             try {
