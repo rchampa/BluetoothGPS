@@ -20,13 +20,14 @@ public class BTGPSPosition implements Serializable{
     public float dir = 0.0f;
     public float altitude = 0.0f;
     public float velocity = 0.0f;
+    public String sentence = "";
 
     public void updatefix() {
         fixed = quality > 0;
     }
 
     public String toString() {
-        return String.format("lat: %f, lon: %f, time: %f, Q: %d, dir: %f, alt: %f, vel: %f", lat, lon, time, quality, dir, altitude, velocity);
+        return String.format("%s lat: %f, lon: %f, time: %f, Q: %d, dir: %f, alt: %f, vel: %f", sentence, lat, lon, time, quality, dir, altitude, velocity);
     }
 
     public Location getLocation(){

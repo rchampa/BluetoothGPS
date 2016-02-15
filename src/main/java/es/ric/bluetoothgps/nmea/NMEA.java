@@ -60,6 +60,8 @@ public class NMEA {
             }
             catch(Exception e){}
 
+            position.sentence = "GPGGA";
+
             return true;
         }
     }
@@ -72,6 +74,9 @@ public class NMEA {
                 position.time = Float.parseFloat(tokens[5]);
             }
             catch(Exception e){}
+
+            position.sentence = "GPGGL";
+
             return true;
         }
     }
@@ -92,6 +97,9 @@ public class NMEA {
                 position.dir = Float.parseFloat(tokens[8]);
             }
             catch(Exception e){}
+
+            position.sentence = "GPRMC";
+
             return true;
         }
     }
@@ -99,6 +107,7 @@ public class NMEA {
     class GPVTG implements SentenceParser {
         public boolean parse(String [] tokens, BTGPSPosition position) {
             position.dir = Float.parseFloat(tokens[3]);
+            position.sentence = "GPVTG";
             return true;
         }
     }
@@ -106,6 +115,7 @@ public class NMEA {
     class GPRMZ implements SentenceParser {
         public boolean parse(String [] tokens, BTGPSPosition position) {
             position.altitude = Float.parseFloat(tokens[1]);
+            position.sentence = "GPRMZ";
             return true;
         }
     }
