@@ -25,6 +25,7 @@ public class ServiceBluetoothGPS extends IntentService implements BTGPSListener 
 
     private BTConnectThread hilo_bluetooh;
     private boolean first_time = true;
+    private BluetoothDevice device;
     private static ServiceBluetoothGPS instance = null;
 
     public ServiceBluetoothGPS() {
@@ -56,7 +57,7 @@ public class ServiceBluetoothGPS extends IntentService implements BTGPSListener 
 
 
         if (myIntent !=null && myIntent.getExtras()!=null) {
-            BluetoothDevice device = myIntent.getParcelableExtra(DEVICE);
+            device = myIntent.getParcelableExtra(DEVICE);
             long refresh_time = myIntent.getLongExtra(REFRESH_TIME, 0);
 
             BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -90,6 +91,7 @@ public class ServiceBluetoothGPS extends IntentService implements BTGPSListener 
             first_time = false;
             Intent broadcastIntent = new Intent();
             broadcastIntent.setAction(ACTION_CONNECTION_SUCCESS);
+            broadcastIntent.putExtra(DEVICE,device);
             this.sendBroadcast(broadcastIntent);
         }
         else {
