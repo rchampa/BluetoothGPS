@@ -35,26 +35,9 @@ public class ServiceBluetoothGPS extends IntentService implements BTGPSListener 
     {
         super.onCreate();
         instance = this;
-//        IntentFilter intentFilter = new IntentFilter();
-//        intentFilter.addAction(ACTION_CONNECTION_CLOSE);
-//        registerReceiver(intentCancelReceiver, intentFilter);
     }
 
-    public void onDestroy(){
-//        instance = null;
-        super.onDestroy();
-//        unregisterReceiver(intentCancelReceiver);
-    }
 
-//    private BroadcastReceiver intentCancelReceiver = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context arg0, Intent intent) {
-//
-//            if(hilo_bluetooh!=null)
-//                hilo_bluetooh.stopConnection();
-//
-//        }
-//    };
 
     public void stopGPS(){
         if(hilo_bluetooh!=null)
