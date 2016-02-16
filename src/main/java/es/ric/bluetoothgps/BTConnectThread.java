@@ -114,10 +114,10 @@ public class BTConnectThread extends Thread {
 
             while (isON) {
 
+                nmeaMessage = br.readLine();
+
                 if(timeElapsed>=this.milliseconds) {
                     startTime = System.currentTimeMillis();
-
-                    nmeaMessage = br.readLine();
                     BTGPSPosition parsed_position = parser.parse(nmeaMessage);
 
                     if (listener != null) {
