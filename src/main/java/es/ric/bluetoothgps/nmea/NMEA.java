@@ -106,17 +106,28 @@ public class NMEA {
 
     class GPVTG implements SentenceParser {
         public boolean parse(String [] tokens, BTGPSPosition position) {
-            position.dir = Float.parseFloat(tokens[3]);
-            position.sentence = "GPVTG";
-            return true;
+            try {
+                position.dir = Float.parseFloat(tokens[3]);
+                position.sentence = "GPVTG";
+                return true;
+            }
+            catch (Exception e){
+                return false;
+            }
         }
     }
 
     class GPRMZ implements SentenceParser {
         public boolean parse(String [] tokens, BTGPSPosition position) {
-            position.altitude = Float.parseFloat(tokens[1]);
-            position.sentence = "GPRMZ";
-            return true;
+
+            try{
+                position.altitude = Float.parseFloat(tokens[1]);
+                position.sentence = "GPRMZ";
+                return true;
+            }
+            catch (Exception e){
+                return false;
+            }
         }
     }
 
