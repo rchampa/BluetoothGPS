@@ -3,6 +3,7 @@ package es.ric.bluetoothgps;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.location.Location;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -119,8 +120,13 @@ public class BTConnectThread extends Thread {
                 if(timeElapsed>=this.milliseconds) {
                     startTime = System.currentTimeMillis();
                     BTGPSPosition parsed_position = parser.parse(nmeaMessage);
-
-                    if (listener != null) {
+                    Location location = parsed_position.getLocation();
+                    if(location.getLatitude()==0d && location.getLongitude()==0d){
+                        //esta posicion no vale
+                        //entonces se reinicia el timer
+                        continue;
+                    }
+                    else if (listener != null) {
                         listener.update(parsed_position, nmeaMessage);
                     }
 
