@@ -26,6 +26,7 @@ public class BTConnectThread extends Thread {
     private long milliseconds = 500;
 
     private volatile boolean isON;
+    private volatile boolean first_time = true;
 
     /**
      * Creates a thread that handles bluetooth socket
@@ -121,12 +122,13 @@ public class BTConnectThread extends Thread {
                     startTime = System.currentTimeMillis();
                     BTGPSPosition parsed_position = parser.parse(nmeaMessage);
                     Location location = parsed_position.getLocation();
-                    if(location.getLatitude()==0d && location.getLongitude()==0d){
+                    if(location.getLatitude()==0d && location.getLongitude()==0d && !first_time){
                         //esta posicion no vale
                         //entonces se reinicia el timer
                         continue;
                     }
                     else if (listener != null) {
+                        first_time = false;
                         listener.update(parsed_position, nmeaMessage);
                     }
 
